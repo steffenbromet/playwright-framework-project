@@ -1,15 +1,14 @@
 import type { APIRequestContext, APIResponse } from '@playwright/test';
 
 export class BaseApiClient {
+
     protected request: APIRequestContext;
 
     constructor(request: APIRequestContext) {
         this.request = request;
     }
 
-    async get(
-        endpoint: string
-    ): Promise<APIResponse> {
+    async get(endpoint: string): Promise<APIResponse> {
         return await this.request.get(endpoint);
     }
 
@@ -31,9 +30,7 @@ export class BaseApiClient {
         });
     }
 
-    async delete(
-        endpoint: string
-    ): Promise<APIResponse> {
+    async delete(endpoint: string): Promise<APIResponse> {
         return await this.request.delete(endpoint);
     }
 }
