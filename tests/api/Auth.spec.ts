@@ -7,17 +7,31 @@ test.describe('Authentication API Tests', () => {
 
         const authClient = new AuthClient(request);
 
-        const response = await authClient.login(
-            'emilys',
-            'emilyspass'
-        );
+        const response = await authClient.loginWithDefaultUser();
 
         expect(response.status()).toBe(200);
 
         const body = await response.json();
 
         expect(body.accessToken).toBeTruthy();
-        expect(body.username).toBe('emilys');
+        expect(body.refreshToken).toBeTruthy();
+        expect(body.username).toBe("emilys");
+        expect(body.id).toBeGreaterThan(0);
+    });
+
+    test('Login with invalid credentials', async ({ request }) => {
+        const authClient = new AuthClient(request);
+
+        const response = await authClient.login(
+            'wrong-user',
+            'wrong-password'
+        );
+
+        expect(response.status()).toBe(400);
+
+        const body = await response.json();
+
+        expect(body.message).toContain('Invalid credentials');
     });
 
 });
