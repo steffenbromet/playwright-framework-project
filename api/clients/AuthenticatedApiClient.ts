@@ -1,6 +1,7 @@
-import type { APIRequestContext, APIResponse } from '@playwright/test';
+import type { APIRequestContext } from '@playwright/test';
 import { BaseApiClient } from './BaseApiClient';
 import { TokenManager } from '../../utils/TokenManager';
+import { ApiResult } from '../models/ApiResult';
 
 export class AuthenticatedApiClient extends BaseApiClient {
 
@@ -11,18 +12,16 @@ export class AuthenticatedApiClient extends BaseApiClient {
         this.tokenManager = TokenManager.getInstance(request);
     }
 
-    protected async authenticatedGet(
-        endpoint: string
-    ): Promise<APIResponse> {
+    protected async authenticatedGet<T>(endpoint: string): Promise<ApiResult<T>> {
 
         const token = await this.tokenManager.getAccessToken();
 
-        return await this.request.get(endpoint, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-
+        return this.executeRequest<T>(
+            this.request.get(endpoint, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+        );
     }
-
 }

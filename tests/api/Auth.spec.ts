@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { AuthClient } from '../../api/clients/AuthClient';
+import { ErrorResponse } from '../../api/models/ErrorResponse';
 
 test.describe('Authentication API Tests', () => {
 
@@ -7,31 +8,27 @@ test.describe('Authentication API Tests', () => {
 
         const authClient = new AuthClient(request);
 
-        const response = await authClient.loginWithDefaultUser();
+        const result = await authClient.loginWithDefaultUser();
 
-        expect(response.status()).toBe(200);
+        expect(result.status).toBe(200);
 
-        const body = await response.json();
-
-        expect(body.accessToken).toBeTruthy();
-        expect(body.refreshToken).toBeTruthy();
-        expect(body.username).toBe("emilys");
-        expect(body.id).toBeGreaterThan(0);
+        expect(result.body.accessToken).toBeTruthy();
+        expect(result.body.refreshToken).toBeTruthy();
+        expect(result.body.username).toBe('emilys');
+        expect(result.body.id).toBeGreaterThan(0);
     });
 
-    test('Login with invalid credentials', async ({ request }) => {
+    test('should fail to login with invalid credentials', async ({ request }) => {
         const authClient = new AuthClient(request);
 
-        const response = await authClient.login(
+        const result = await authClient.login<ErrorResponse>(
             'wrong-user',
             'wrong-password'
         );
 
-        expect(response.status()).toBe(400);
+        expect(result.status).toBe(400);
 
-        const body = await response.json();
-
-        expect(body.message).toContain('Invalid credentials');
+        expect(result.body.message).toContain('Invalid credentials');
     });
 
 });

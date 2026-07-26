@@ -1,4 +1,5 @@
 import type { APIRequestContext, APIResponse } from '@playwright/test';
+import { ApiResult } from '../models/ApiResult';
 
 export class BaseApiClient {
 
@@ -8,29 +9,41 @@ export class BaseApiClient {
         this.request = request;
     }
 
-    async get(endpoint: string): Promise<APIResponse> {
-        return await this.request.get(endpoint);
+    protected async executeRequest<T>(requestPromise: Promise<APIResponse>): Promise<ApiResult<T>> {
+
+        const response = await requestPromise;
+
+        return {
+            status: response.status(),
+            body: await response.json() as T
+        };
     }
 
-    async post(
-        endpoint: string,
-        data?: object
-    ): Promise<APIResponse> {
-        return await this.request.post(endpoint, {
-            data,
-        });
+    async get<T>(endpoint: string): Promise<ApiResult<T>> {
+
+        return this.executeRequest<T>(
+            this.request.get(endpoint)
+        );
     }
 
-    async put(
-        endpoint: string,
-        data?: object
-    ): Promise<APIResponse> {
-        return await this.request.put(endpoint, {
-            data,
-        });
+    async post<T>(endpoint: string, data?: object): Promise<ApiResult<T>> {
+
+        return this.executeRequest<T>(
+            this.request.post(endpoint, { data })
+        );
     }
 
-    async delete(endpoint: string): Promise<APIResponse> {
-        return await this.request.delete(endpoint);
+    async put<T>(endpoint: string, data?: object): Promise<ApiResult<T>> {
+
+        return this.executeRequest<T>(
+            this.request.put(endpoint, { data })
+        );
+    }
+
+    async delete<T>(endpoint: string): Promise<ApiResult<T>> {
+
+        return this.executeRequest<T>(
+            this.request.delete(endpoint)
+        );
     }
 }

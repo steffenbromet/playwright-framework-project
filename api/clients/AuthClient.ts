@@ -1,5 +1,7 @@
-import type { APIRequestContext, APIResponse } from '@playwright/test';
+import type { APIRequestContext } from '@playwright/test';
 import { BaseApiClient } from './BaseApiClient';
+import { LoginResponse } from '../models/LoginResponse';
+import { ApiResult } from '../models/ApiResult';
 
 export class AuthClient extends BaseApiClient {
 
@@ -10,19 +12,17 @@ export class AuthClient extends BaseApiClient {
         super(request);
     }
 
-    async login(
-        username: string,
-        password: string
-    ): Promise<APIResponse> {
-
-        return await this.post('/auth/login', {
-            username,
-            password
-        });
+    async login<T>(username: string, password: string): Promise<ApiResult<T>> {
+        return this.post<T>('/auth/login',
+            {
+                username,
+                password
+            }
+        );
     }
 
-    async loginWithDefaultUser(): Promise<APIResponse> {
-        return await this.login(
+    async loginWithDefaultUser(): Promise<ApiResult<LoginResponse>> {
+        return this.login<LoginResponse>(
             this.defaultUsername,
             this.defaultPassword
         );

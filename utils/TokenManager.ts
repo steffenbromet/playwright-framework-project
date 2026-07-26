@@ -28,12 +28,11 @@ export class TokenManager {
             return this.accessToken;
         }
 
-        //console.log(`Performing login PID: ${process.pid}`);
-        const response = await this.authClient.loginWithDefaultUser();
+        // console.log(`Performing login PID: ${process.pid}`);
 
-        const body = await response.json();
+        const result = await this.authClient.loginWithDefaultUser();
 
-        const token = body.accessToken;
+        const token = result.body.accessToken;
 
         if (!token) {
             throw new Error('Access token was not returned by the API.');

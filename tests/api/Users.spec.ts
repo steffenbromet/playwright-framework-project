@@ -7,14 +7,12 @@ test.describe('Users API Tests', () => {
 
         const usersClient = new UsersClient(request);
 
-        const response = await usersClient.getCurrentUser();
+        const result = await usersClient.getCurrentUser();
 
-        expect(response.status()).toBe(200);
+        expect(result.status).toBe(200);
 
-        const body = await response.json();
-
-        expect(body.username).toBe('emilys');
-        expect(body.id).toBeGreaterThan(0);
+        expect(result.body.username).toBe('emilys');
+        expect(result.body.id).toBeGreaterThan(0);
 
     });
 
