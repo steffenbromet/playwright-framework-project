@@ -9,8 +9,6 @@ The project is developed in two major phases:
 
 The objective is to demonstrate how to design a complete automation framework using software engineering principles such as clean architecture, strong typing, reusable components and maintainable test design.
 
-
-
 ---
 
 ## ✨ Features
