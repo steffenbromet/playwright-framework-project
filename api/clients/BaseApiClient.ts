@@ -19,28 +19,28 @@ export class BaseApiClient {
         };
     }
 
-    async get<T>(endpoint: string): Promise<ApiResult<T>> {
+    protected async get<T>(endpoint: string): Promise<ApiResult<T>> {
 
         return this.executeRequest<T>(
             this.request.get(endpoint)
         );
     }
 
-    async post<T>(endpoint: string, data?: object): Promise<ApiResult<T>> {
+    protected async post<T>(endpoint: string, data?: object): Promise<ApiResult<T>> {
 
         return this.executeRequest<T>(
             this.request.post(endpoint, { data })
         );
     }
 
-    async put<T>(endpoint: string, data?: object): Promise<ApiResult<T>> {
+    protected async put<T>(endpoint: string, data?: object): Promise<ApiResult<T>> {
 
         return this.executeRequest<T>(
             this.request.put(endpoint, { data })
         );
     }
 
-    async delete<T>(endpoint: string): Promise<ApiResult<T>> {
+    protected async delete<T>(endpoint: string): Promise<ApiResult<T>> {
 
         return this.executeRequest<T>(
             this.request.delete(endpoint)
