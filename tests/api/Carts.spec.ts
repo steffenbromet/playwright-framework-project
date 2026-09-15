@@ -1,5 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { CartsClient } from '../../api/clients/CartsClient';
+import { CreateCartRequest } from '../../api/models/CreateCartRequest';
+import { UpdateCartRequest } from '../../api/models/UpdateCartRequest';
+
 
 test.describe('Carts API Tests', () => {
 
@@ -55,5 +58,78 @@ test.describe('Carts API Tests', () => {
         for (const cart of result.body.carts) {
             expect(cart.userId).toBe(userId);
         }
+    });
+
+    test('should create a new cart', async ({ request }) => {
+        const cartsClient = new CartsClient(request);
+
+        const newCart: CreateCartRequest = {
+            userId: 5,
+            products: [
+                {
+                    id: 161,
+                    quantity: 2
+                },
+                {
+                    id: 39,
+                    quantity: 3
+                }
+            ]
+        };
+
+        const result = await cartsClient.createCart(newCart);
+
+        expect(result.status).toBe(201);
+        expect(result.body.id).toBeGreaterThan(0);
+        expect(result.body.userId).toBe(newCart.userId);
+        expect(result.body.products.length).toBe(newCart.products.length);
+        expect(result.body.totalProducts).toBe(newCart.products.length);
+
+        const expectedTotalQuantity = newCart.products.reduce((sum, product) => sum + product.quantity, 0);
+        expect(result.body.totalQuantity).toBe(expectedTotalQuantity);
+    });
+
+    test('should update a cart', async({ request }) => {
+        const cartsClient = new CartsClient(request);
+
+        const cartId = 1;
+
+        const updatedCart: UpdateCartRequest = {
+            merge: true,
+            products: [
+                {
+                    id: 1,
+                    quantity: 2
+                }
+            ]
+        };
+
+        const result = await cartsClient.updateCart(cartId, updatedCart);
+
+        expect(result.status).toBe(200);
+        expect(result.body.id).toBe(cartId);
+        expect(result.body.userId).toBe(1);
+
+        const productToUpdate = updatedCart.products[0];
+
+        const updatedProduct = result.body.products.find(
+            product => product.id === productToUpdate.id
+        );
+
+        expect(updatedProduct).toBeDefined();
+        expect(updatedProduct?.quantity).toBe(productToUpdate.quantity);
+    });
+
+    test('should delete a cart', async ({ request }) => {
+        const cartsClient = new CartsClient(request);
+
+        const cartId = 1;
+
+        const result = await cartsClient.deleteCart(cartId);
+
+        expect(result.status).toBe(200);
+        expect(result.body.id).toBe(cartId);
+        expect(result.body.isDeleted).toBe(true);
+        expect(result.body.deletedOn).toBeTruthy();
     });
 });
