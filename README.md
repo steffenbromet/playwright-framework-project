@@ -195,8 +195,8 @@ npx playwright test tests/api/Auth.spec.ts
 - [x] Authentication Layer
 - [x] Token Manager
 - [x] Users Client
-- [ ] Products Client
-- [ ] Carts Client
+- [x] Products Client
+- [x] Carts Client
 - [ ] Posts Client
 - [ ] Docker
 - [ ] Environment Variables
