@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { CartsClient } from '../../api/clients/CartsClient';
-import type { CreateCartRequest } from '../../api/models/CreateCartRequest';
-import type { UpdateCartRequest } from '../../api/models/UpdateCartRequest';
+import { CartsClient } from '../../../api/rest/clients/CartsClient';
+import type { CreateCartRequest } from '../../../api/rest/models/CreateCartRequest';
+import type { UpdateCartRequest } from '../../../api/rest/models/UpdateCartRequest';
 
 
 test.describe('Carts API Tests', () => {

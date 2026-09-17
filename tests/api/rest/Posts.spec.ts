@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { PostsClient } from '../../api/clients/PostsClient';
-import type { CreatePostRequest } from '../../api/models/CreatePostRequest';
-import type { UpdatePostRequest } from '../../api/models/UpdatePostRequest';
+import { PostsClient } from '../../../api/rest/clients/PostsClient';
+import type { CreatePostRequest } from '../../../api/rest/models/CreatePostRequest';
+import type { UpdatePostRequest } from '../../../api/rest/models/UpdatePostRequest';
 
 test.describe('Posts API Tests', () => {
 

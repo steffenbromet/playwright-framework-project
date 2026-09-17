@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { ProductsClient } from '../../api/clients/ProductsClient';
-import type { CreateProductRequest } from '../../api/models/CreateProductRequest';
-import type { UpdateProductRequest } from '../../api/models/UpdateProductRequest';
+import { ProductsClient } from '../../../api/rest/clients/ProductsClient';
+import type { CreateProductRequest } from '../../../api/rest/models/CreateProductRequest';
+import type { UpdateProductRequest } from '../../../api/rest/models/UpdateProductRequest';
 
 test.describe('Products API Tests', () => {
 

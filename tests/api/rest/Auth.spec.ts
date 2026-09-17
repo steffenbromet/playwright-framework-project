@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { AuthClient } from '../../api/clients/AuthClient';
-import type { ErrorResponse } from '../../api/models/ErrorResponse';
+import { AuthClient } from '../../../api/rest/clients/AuthClient';
+import type { ErrorResponse } from '../../../api/rest/models/ErrorResponse';
 
 test.describe('Authentication API Tests', () => {
 

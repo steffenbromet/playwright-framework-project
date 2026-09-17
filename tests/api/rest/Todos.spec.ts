@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { TodosClient } from '../../api/clients/TodosClient';
-import type { CreateTodoRequest } from '../../api/models/CreateTodoRequest';
-import type { UpdateTodoRequest } from '../../api/models/UpdateTodoRequest';
+import { TodosClient } from '../../../api/rest/clients/TodosClient';
+import type { CreateTodoRequest } from '../../../api/rest/models/CreateTodoRequest';
+import type { UpdateTodoRequest } from '../../../api/rest/models/UpdateTodoRequest';
 
 test.describe('Todos API Tests', () => {
 

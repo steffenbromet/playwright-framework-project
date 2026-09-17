@@ -1,25 +1,14 @@
 import type { APIRequestContext } from '@playwright/test';
-import { AuthClient } from '../api/clients/AuthClient';
-
+import { AuthClient } from '../api/rest/clients/AuthClient';
+ 
 export class TokenManager {
-
-    private static instance: TokenManager;
 
     private authClient: AuthClient;
     private accessToken?: string;
 
-    private constructor(request: APIRequestContext) {
+    constructor(request: APIRequestContext) {
         //console.log(`Creating TokenManager PID: ${process.pid}`);
         this.authClient = new AuthClient(request);
-    }
-
-    static getInstance(request: APIRequestContext): TokenManager {
-
-        if (!TokenManager.instance) {
-            TokenManager.instance = new TokenManager(request);
-        }
-
-        return TokenManager.instance;
     }
 
     async getAccessToken(): Promise<string> {
@@ -42,5 +31,4 @@ export class TokenManager {
 
         return token;
     }
-
 }

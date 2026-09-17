@@ -1,6 +1,6 @@
 import type { APIRequestContext } from '@playwright/test';
 import { BaseApiClient } from './BaseApiClient';
-import { TokenManager } from '../../utils/TokenManager';
+import { TokenManager } from '../../../utils/TokenManager';
 import type { ApiResult } from '../models/ApiResult';
 
 export class AuthenticatedApiClient extends BaseApiClient {
@@ -9,7 +9,7 @@ export class AuthenticatedApiClient extends BaseApiClient {
 
     constructor(request: APIRequestContext) {
         super(request);
-        this.tokenManager = TokenManager.getInstance(request);
+        this.tokenManager = new TokenManager(request);
     }
 
     protected async authenticatedGet<T>(endpoint: string): Promise<ApiResult<T>> {

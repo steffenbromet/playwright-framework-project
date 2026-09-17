@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { UsersClient } from '../../api/clients/UsersClient';
+import { UsersClient } from '../../../api/rest/clients/UsersClient';
 
 test.describe('Users API Tests', () => {
 
