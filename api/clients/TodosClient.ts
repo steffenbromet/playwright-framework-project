@@ -1,11 +1,11 @@
-import { BaseApiClient } from './BaseApiClient';
 import type { APIRequestContext } from '@playwright/test';
+import { BaseApiClient } from './BaseApiClient';
 import type { ApiResult } from '../models/ApiResult';
 import type { TodosResponse } from '../models/TodosResponse';
 import type { Todo } from '../models/Todo';
 import type { CreateTodoRequest } from '../models/CreateTodoRequest';
 import type { UpdateTodoRequest } from '../models/UpdateTodoRequest';
-import { DeleteTodoResponse } from '../models/DeleteTodoResponse';
+import type { DeleteTodoResponse } from '../models/DeleteTodoResponse';
 
 export class TodosClient extends BaseApiClient {
 
@@ -22,11 +22,11 @@ export class TodosClient extends BaseApiClient {
     }
 
     async createTodo(newTodo: CreateTodoRequest): Promise<ApiResult<Todo>> {
-        return this.post<Todo>('/todos/add',newTodo);
+        return this.post<Todo>('/todos/add', newTodo);
     }
 
     async updateTodo(id: number, updatedTodo: UpdateTodoRequest): Promise<ApiResult<Todo>> {
-        return this.put<Todo>(`/todos/${id}`,updatedTodo);
+        return this.put<Todo>(`/todos/${id}`, updatedTodo);
     }
 
     async deleteTodo(id: number): Promise<ApiResult<DeleteTodoResponse>> {

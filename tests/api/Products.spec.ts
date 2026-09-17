@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { ProductsClient } from '../../api/clients/ProductsClient';
-import { CreateProductRequest } from '../../api/models/CreateProductRequest';
-import { UpdateProductRequest } from '../../api/models/UpdateProductRequest';
+import type { CreateProductRequest } from '../../api/models/CreateProductRequest';
+import type { UpdateProductRequest } from '../../api/models/UpdateProductRequest';
 
 test.describe('Products API Tests', () => {
 
@@ -12,7 +12,6 @@ test.describe('Products API Tests', () => {
         const result = await productsClient.getProducts();
 
         expect(result.status).toBe(200);
-
         expect(result.body.products.length).toBeGreaterThan(0);
         expect(result.body.total).toBeGreaterThan(0);
         expect(result.body.skip).toBe(0);
@@ -21,9 +20,9 @@ test.describe('Products API Tests', () => {
         const firstProduct = result.body.products[0];
 
         expect(firstProduct.id).toBeGreaterThan(0);
-        expect(firstProduct.title).toBeTruthy();
+        expect(firstProduct.title.length).toBeGreaterThan(0);
         expect(firstProduct.price).toBeGreaterThan(0);
-        expect(firstProduct.category).toBeTruthy();
+        expect(firstProduct.category.length).toBeGreaterThan(0);
     });
 
     test('should retrieve a product by id', async ({ request }) => {
@@ -35,12 +34,11 @@ test.describe('Products API Tests', () => {
         const result = await productsClient.getProduct(productId);
 
         expect(result.status).toBe(200);
-
         expect(result.body.id).toBe(productId);
-        expect(result.body.title).toBeTruthy();
-        expect(result.body.description).toBeTruthy();
+        expect(result.body.title.length).toBeGreaterThan(0);
+        expect(result.body.description.length).toBeGreaterThan(0);
         expect(result.body.price).toBeGreaterThan(0);
-        expect(result.body.category).toBeTruthy();
+        expect(result.body.category.length).toBeGreaterThan(0);
     });
 
     test('should create product', async ({ request }) => {
@@ -58,7 +56,6 @@ test.describe('Products API Tests', () => {
         const result = await productsClient.createProduct(newProduct);
 
         expect(result.status).toBe(201);
-
         expect(result.body.id).toBeGreaterThan(0);
         expect(result.body.title).toBe(newProduct.title);
         expect(result.body.description).toBe(newProduct.description);
@@ -84,7 +81,6 @@ test.describe('Products API Tests', () => {
         );
 
         expect(result.status).toBe(200);
-
         expect(result.body.id).toBe(productId);
         expect(result.body.title).toBe(updateData.title);
         expect(result.body.price).toBe(updateData.price);
@@ -99,7 +95,6 @@ test.describe('Products API Tests', () => {
         const result = await productsClient.deleteProduct(productId);
 
         expect(result.status).toBe(200);
-
         expect(result.body.id).toBe(productId);
         expect(result.body.isDeleted).toBe(true);
         expect(result.body.deletedOn).toBeTruthy();
@@ -146,7 +141,7 @@ test.describe('Products API Tests', () => {
         expect(result.body.length).toBeGreaterThan(0);
 
         for (const category of result.body) {
-            expect(category).toBeTruthy();
+            expect(category.length).toBeGreaterThan(0);
         }
     });
 

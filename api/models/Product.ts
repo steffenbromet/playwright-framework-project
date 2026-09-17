@@ -1,6 +1,6 @@
-import { Dimensions } from './Dimensions';
-import { Review } from './Review';
-import { ProductMeta } from './ProductMeta';
+import type { Dimensions } from './Dimensions';
+import type { Review } from './Review';
+import type { ProductMeta } from './ProductMeta';
 
 export interface Product {
     id: number;

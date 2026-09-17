@@ -1,5 +1,5 @@
-import { BaseApiClient } from './BaseApiClient';
 import type { APIRequestContext } from '@playwright/test';
+import { BaseApiClient } from './BaseApiClient';
 import type { ApiResult } from '../models/ApiResult';
 import type { PostsResponse } from '../models/PostResponse';
 import type { Post } from '../models/Post';

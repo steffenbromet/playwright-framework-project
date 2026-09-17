@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { PostsClient } from '../../api/clients/PostsClient';
-import { CreatePostRequest } from '../../api/models/CreatePostRequest';
-import { UpdatePostRequest } from '../../api/models/UpdatePostRequest';
+import type { CreatePostRequest } from '../../api/models/CreatePostRequest';
+import type { UpdatePostRequest } from '../../api/models/UpdatePostRequest';
 
 test.describe('Posts API Tests', () => {
 
@@ -10,6 +10,7 @@ test.describe('Posts API Tests', () => {
 
         const result = await postsClient.getPosts();
 
+        expect(result.status).toBe(200);
         expect(result.body.posts.length).toBeGreaterThan(0);
         expect(result.body.total).toBeGreaterThan(0);
         expect(result.body.skip).toBe(0);
@@ -24,9 +25,7 @@ test.describe('Posts API Tests', () => {
         const result = await postsClient.getPost(postId);
 
         expect(result.status).toBe(200);
-
         expect(result.body.id).toBe(postId);
-        expect(result.body.title).toBeTruthy();
         expect(result.body.title.length).toBeGreaterThan(0);
         expect(result.body.userId).toBeGreaterThan(0);
         expect(result.body.tags.length).toBeGreaterThan(0);
@@ -70,16 +69,17 @@ test.describe('Posts API Tests', () => {
     });
 
     test('should delete a post', async ({ request }) => {
-        const postClient = new PostsClient(request);
+        const postsClient = new PostsClient(request);
         
         const postId = 1;
 
-        const result = await postClient.deletePost(postId);
+        const result = await postsClient.deletePost(postId);
 
         expect(result.status).toBe(200);
         expect(result.body.id).toBe(postId);
         expect(result.body.isDeleted).toBe(true);
         expect(result.body.deletedOn).toBeTruthy();
+        expect(Date.parse(result.body.deletedOn)).not.toBeNaN();
     });
 
     test('should retrieve a post by user', async ({ request }) => {

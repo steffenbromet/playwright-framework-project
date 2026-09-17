@@ -25,7 +25,7 @@ export class CartsClient extends BaseApiClient {
     }
 
     async createCart(newCart: CreateCartRequest): Promise<ApiResult<Cart>> {
-        return this.post<Cart>('/carts/add',newCart);
+        return this.post<Cart>('/carts/add', newCart);
     }
 
     async updateCart(id: number, updateCart: UpdateCartRequest): Promise<ApiResult<Cart>> {

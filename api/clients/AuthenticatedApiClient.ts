@@ -1,7 +1,7 @@
 import type { APIRequestContext } from '@playwright/test';
 import { BaseApiClient } from './BaseApiClient';
 import { TokenManager } from '../../utils/TokenManager';
-import { ApiResult } from '../models/ApiResult';
+import type { ApiResult } from '../models/ApiResult';
 
 export class AuthenticatedApiClient extends BaseApiClient {
 

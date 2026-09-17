@@ -10,6 +10,15 @@ test.describe('Token Manager Tests', () => {
         const token = await tokenManager.getAccessToken();
 
         expect(token).toBeTruthy();
+        expect(typeof token).toBe('string');
+        expect(token.length).toBeGreaterThan(0);
     });
 
+    test('should return the same TokenManager instance', ({ request }) => {
+
+        const firstInstance = TokenManager.getInstance(request);
+        const secondInstance = TokenManager.getInstance(request);
+
+        expect(firstInstance).toBe(secondInstance);
+    });
 });

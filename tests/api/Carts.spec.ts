@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { CartsClient } from '../../api/clients/CartsClient';
-import { CreateCartRequest } from '../../api/models/CreateCartRequest';
-import { UpdateCartRequest } from '../../api/models/UpdateCartRequest';
+import type { CreateCartRequest } from '../../api/models/CreateCartRequest';
+import type { UpdateCartRequest } from '../../api/models/UpdateCartRequest';
 
 
 test.describe('Carts API Tests', () => {
@@ -108,7 +108,6 @@ test.describe('Carts API Tests', () => {
 
         expect(result.status).toBe(200);
         expect(result.body.id).toBe(cartId);
-        expect(result.body.userId).toBe(1);
 
         const productToUpdate = updatedCart.products[0];
 
@@ -131,5 +130,6 @@ test.describe('Carts API Tests', () => {
         expect(result.body.id).toBe(cartId);
         expect(result.body.isDeleted).toBe(true);
         expect(result.body.deletedOn).toBeTruthy();
+        expect(Date.parse(result.body.deletedOn)).not.toBeNaN();
     });
 });

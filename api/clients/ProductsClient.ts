@@ -1,10 +1,10 @@
 import type { APIRequestContext } from '@playwright/test';
 import { BaseApiClient } from './BaseApiClient';
-import { ApiResult } from '../models/ApiResult';
-import { CreateProductRequest } from '../models/CreateProductRequest';
-import { Product } from '../models/Product';
-import { ProductsResponse } from '../models/ProductsResponse';
-import { UpdateProductRequest } from '../models/UpdateProductRequest';
+import type { ApiResult } from '../models/ApiResult';
+import type { CreateProductRequest } from '../models/CreateProductRequest';
+import type { Product } from '../models/Product';
+import type { ProductsResponse } from '../models/ProductsResponse';
+import type { UpdateProductRequest } from '../models/UpdateProductRequest';
 import type { DeleteProductResponse } from '../models/DeleteProductResponse';
 
 export class ProductsClient extends BaseApiClient {

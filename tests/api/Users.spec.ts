@@ -13,7 +13,5 @@ test.describe('Users API Tests', () => {
 
         expect(result.body.username).toBe('emilys');
         expect(result.body.id).toBeGreaterThan(0);
-
     });
-
 });

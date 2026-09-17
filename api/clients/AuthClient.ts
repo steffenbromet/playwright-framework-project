@@ -1,7 +1,7 @@
 import type { APIRequestContext } from '@playwright/test';
 import { BaseApiClient } from './BaseApiClient';
-import { LoginResponse } from '../models/LoginResponse';
-import { ApiResult } from '../models/ApiResult';
+import type { LoginResponse } from '../models/LoginResponse';
+import type { ApiResult } from '../models/ApiResult';
 
 export class AuthClient extends BaseApiClient {
 

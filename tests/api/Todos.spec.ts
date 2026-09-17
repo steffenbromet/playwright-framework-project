@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { TodosClient } from '../../api/clients/TodosClient';
-import { CreateTodoRequest } from '../../api/models/CreateTodoRequest';
-import { UpdateTodoRequest } from '../../api/models/UpdateTodoRequest';
+import type { CreateTodoRequest } from '../../api/models/CreateTodoRequest';
+import type { UpdateTodoRequest } from '../../api/models/UpdateTodoRequest';
 
 test.describe('Todos API Tests', () => {
 
@@ -79,5 +79,6 @@ test.describe('Todos API Tests', () => {
         expect(result.body.userId).toBeGreaterThan(0);
         expect(result.body.isDeleted).toBe(true);
         expect(result.body.deletedOn).toBeTruthy();
+        expect(Date.parse(result.body.deletedOn)).not.toBeNaN();
     });
 });

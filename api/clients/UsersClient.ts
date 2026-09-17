@@ -1,6 +1,7 @@
 import type { APIRequestContext } from '@playwright/test';
 import { AuthenticatedApiClient } from './AuthenticatedApiClient';
-import { User } from '../models/User';
+import type { ApiResult } from '../models/ApiResult';
+import type { User } from '../models/User';
 
 export class UsersClient extends AuthenticatedApiClient {
 
@@ -8,7 +9,7 @@ export class UsersClient extends AuthenticatedApiClient {
         super(request);
     }
 
-    async getCurrentUser() {
+    async getCurrentUser(): Promise<ApiResult<User>> {
         return this.authenticatedGet<User>('/auth/me');
     }
 }

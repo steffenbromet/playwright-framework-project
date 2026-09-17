@@ -1,11 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { AuthClient } from '../../api/clients/AuthClient';
-import { ErrorResponse } from '../../api/models/ErrorResponse';
+import type { ErrorResponse } from '../../api/models/ErrorResponse';
 
 test.describe('Authentication API Tests', () => {
 
     test('should login successfully with valid credentials', async ({ request }) => {
-
         const authClient = new AuthClient(request);
 
         const result = await authClient.loginWithDefaultUser();
@@ -16,6 +15,11 @@ test.describe('Authentication API Tests', () => {
         expect(result.body.refreshToken).toBeTruthy();
         expect(result.body.username).toBe('emilys');
         expect(result.body.id).toBeGreaterThan(0);
+        expect(result.body.email).toBeTruthy();
+        expect(result.body.firstName).toBeTruthy();
+        expect(result.body.lastName).toBeTruthy();
+        expect(result.body.gender).toBeTruthy();
+        expect(result.body.image).toBeTruthy();
     });
 
     test('should fail to login with invalid credentials', async ({ request }) => {
